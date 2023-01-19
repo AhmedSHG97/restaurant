@@ -19,4 +19,4 @@ Problem Solving and authentication (note: please do not use the laravel artisan 
 * used mysql.
 
 ## Postman Collection
-- https://api.postman.com/collections/4768462-9fc641f0-c7c0-4033-a5e1-ac6e42396ded?access_key=PMAT-01GQ50WXYS6G5SDX42JZ2TGV2X
+- https://api.postman.com/collections/4768462-9fc641f0-c7c0-4033-a5e1-ac6e42396ded?access_key=PMAT-01GQ50WXYS6G5SDX42JZ2TGV2X 
