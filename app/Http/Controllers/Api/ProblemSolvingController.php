@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ProblemSolvingController extends Controller
 {
-    private $apiResponse,$validator;
+    private $apiResponse,$validator, $max = 10000;
     public function __construct(ApiResponse $apiResponse, Validator $validator)
     {
         $this->apiResponse = $apiResponse;
@@ -74,5 +74,40 @@ class ProblemSolvingController extends Controller
         }
         return $this->apiResponse->setSuccess("the index of the string")->setData($string_index)->getJsonResponse();
 
+    }
+
+    public function getLessOperations(Request $request){
+        $rules = [
+            "N" => "required|integer|min:1|max:10000",
+            "Q" => "required|array|min:". $request->N . "|max:".$request->N."",
+            "Q.*" => "required|integer|min:0|max:10000",
+        ];
+        $validation = $this->validator::make($request->all(), $rules);
+        if($validation->fails()){
+            return $this->apiResponse->setError($validation->errors()->first())->setData()->getJsonResponse();
+        }
+        $nums = [];
+        for($i = 0; $i < $this->max; ++$i) $nums[$i] = -1;
+        $nums[0] = 0; $nums[1] = 1; $nums[2] = 2; $nums[3] = 3;
+        $operations = [];
+        foreach($request->Q as $number){
+            $operations[] = $this->operationsToZero($number, $nums);
+        }
+        return $this->apiResponse->setSuccess("the minimum number of operations array is:")->setData($operations)->getJsonResponse();
+
+    }
+
+
+    private function operationsToZero($number, $nums){
+        
+
+        for($i = 0; $i < $this->max; ++$i){
+            if($nums[$i] == -1 || (isset($nums[$i - 1]) && $nums[$i] > ($nums[$i - 1] + 1)))
+                $nums[$i] = $nums[$i - 1] + 1;
+            for($j = 1; $j <= $i && $j * $i < $this->max; ++$j)
+                if($nums[$j * $i] == -1 || ($nums[$i] + 1) < $nums[$j * $i])
+                    $nums[$j * $i] = $nums[$i] + 1;
+        }
+        return $nums[$number];
     }
 }

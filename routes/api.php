@@ -26,6 +26,7 @@ Route::post('/reset/password',[UserAuthenticationController::class,"resetPasswor
 Route::post('/change/password',[UserAuthenticationController::class,"changePassword"]);
 Route::get('/getNumbersCount',[ProblemSolvingController::class,"getNumbersCount"]);
 Route::get('/getStringIndex',[ProblemSolvingController::class,"getStringIndex"]);
+Route::get('/getLessOperations',[ProblemSolvingController::class,"getLessOperations"]);
 
 Route::group(['middleware'=>["auth:api"]],function(){
     Route::post('password/update',[UserAuthenticationController::class,"updatePassword"]);
