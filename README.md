@@ -14,6 +14,7 @@ Problem Solving and authentication (note: please do not use the laravel artisan 
 * used events , listeners and notifications for emails and notifications.
 * used dependency injection.
 * used laravel passport for tokenizations.
+* used laravel socialite for social login used identification
 * used linux
 * used apache2
 * used mysql.
